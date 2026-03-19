@@ -149,7 +149,10 @@ class VoterVerifyView(APIView):
 
     def post(self, request, pk):
         service = VoterManagementService()
-        service.verify(pk, request.user)
+        try:
+            service.verify(pk, request.user)
+        except User.DoesNotExist:
+            return Response({"detail": "Voter not found."}, status=status.HTTP_404_NOT_FOUND)
         return Response({"detail": "Voter verified successfully."})
 
 

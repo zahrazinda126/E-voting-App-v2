@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -79,6 +80,11 @@ class CastVoteView(APIView):
         service = VoteCastingService()
         try:
             votes = service.cast(request.user, serializer.validated_data)
+        except IntegrityError:
+            return Response(
+                {"detail": "Duplicate vote detected for one or more positions in this poll."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         except (ValueError, Poll.DoesNotExist) as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
