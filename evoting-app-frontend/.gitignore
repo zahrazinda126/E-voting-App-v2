@@ -1,0 +1,7 @@
+# Node/Next.js
+node_modules/
+.next/
+out/
+build/
+.env*
+!.env.example

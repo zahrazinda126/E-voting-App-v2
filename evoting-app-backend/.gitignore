@@ -1,0 +1,7 @@
+# Python/Django
+__pycache__/
+*.py[cod]
+*.class
+venv/
+.env
+db.sqlite3
