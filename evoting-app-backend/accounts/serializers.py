@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "date_joined"]
 
     def get_full_name(self, obj):
-        return f"{obj.first_name or ''} {obj.last_name or ''}".strip()
+        return obj.get_full_name()
 
 
 # ==============================
@@ -119,13 +119,9 @@ class VoterRegistrationSerializer(serializers.Serializer):
             role=User.Role.VOTER
         )
 
-        # Simple voter card generator (you can improve this)
-        voter_card_number = f"VC{user.id:06d}"
-
         VoterProfile.objects.create(
             user=user,
             national_id=validated_data["national_id"],
-            voter_card_number=voter_card_number,
             date_of_birth=validated_data["date_of_birth"],
             gender=validated_data["gender"],
             address=validated_data["address"],
@@ -221,4 +217,4 @@ class AdminListSerializer(serializers.ModelSerializer):
         ]
 
     def get_full_name(self, obj):
-        return f"{obj.first_name or ''} {obj.last_name or ''}".strip()
+        return obj.get_full_name()
