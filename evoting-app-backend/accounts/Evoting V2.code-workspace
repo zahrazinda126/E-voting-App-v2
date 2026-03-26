@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"name": "E-voting-App-v2",
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
